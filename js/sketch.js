@@ -14,8 +14,10 @@ let flipped=true;
 let count=0;
 let zoom=5;
 let panVal=-5;
-let spaceBase=10;
+let spaceBase=20;
 let baseRadius=5;
+
+
 function setup(){
     //noLoop();
     let mycanvas=createCanvas(600,400, WEBGL);
@@ -58,7 +60,6 @@ function generateSpiral2(){
 
 function draw(){
     background(0);
-    
     translate(-200, -200);
     noFill();
     /*rotateangle+=.01;
@@ -94,9 +95,17 @@ function draw(){
         vertex(spiral2[i].x,spiral2[i].y,spiral2[i].z);
     }
     endShape();
+    
+    //connect bases
+    stroke('yellow');
+    for(let i=0;i<spiral2.length;i++){
+        if(i%spaceBase==0){
+            line(spiral1[i].x,spiral1[i].y,spiral1[i].z,spiral2[i].x,spiral2[i].y,spiral2[i].z);
+            //pop();
+        }
+    }
 
 
-    //draw 1st base
     stroke('blue');
     for(let i=0;i<spiral1.length;i++){
         if(i%spaceBase==0){
@@ -118,14 +127,7 @@ function draw(){
         }
     }
 
-    //connect bases
-    stroke('yellow');
-    for(let i=0;i<spiral2.length;i++){
-        if(i%spaceBase==0){
-            line(spiral1[i].x,spiral1[i].y,spiral1[i].z,spiral2[i].x,spiral2[i].y,spiral2[i].z);
-            //pop();
-        }
-    }
+
     //move camera
     /*camera.zoom(zoom);
     //camera.panY(panVal);
