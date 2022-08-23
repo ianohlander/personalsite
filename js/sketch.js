@@ -15,7 +15,7 @@ let count=0;
 let zoom=5;
 let panVal=-5;
 let spaceBase=20;
-let baseRadius=5;
+let baseRadius=15;
 
 
 function setup(){
@@ -62,11 +62,11 @@ function draw(){
     background(0);
     translate(-200, -200);
     noFill();
-    /*rotateangle+=.01;
+    rotateangle+=.01;
 
     rotateX(rotateangle);
     rotateY(rotateangle);
-    rotateZ(rotateangle);*/
+    rotateZ(rotateangle);
     /*if(mouseIsPressed){
         // read cam params
       //console.log(camera.camRUP);
@@ -78,7 +78,7 @@ function draw(){
     //draw 1st helix
     
     stroke('red');
-    strokeWeight(3);
+    strokeWeight(15);
     beginShape()
     for(let i=0;i<spiral1.length;i++){
         vertex(spiral1[i].x,spiral1[i].y,spiral1[i].z);
@@ -89,7 +89,7 @@ function draw(){
 
     //draw 2nd helix
     stroke('green');
-    strokeWeight(3);
+    //strokeWeight(3);
     beginShape()
     for(let i=0;i<spiral2.length;i++){
         vertex(spiral2[i].x,spiral2[i].y,spiral2[i].z);
@@ -97,6 +97,7 @@ function draw(){
     endShape();
     
     //connect bases
+    strokeWeight(5);
     stroke('yellow');
     for(let i=0;i<spiral2.length;i++){
         if(i%spaceBase==0){
@@ -129,7 +130,7 @@ function draw(){
 
 
     //move camera
-    /*camera.zoom(zoom);
+    camera.zoom(zoom);
     //camera.panY(panVal);
     count++;
     if(count % 200==0){
@@ -137,8 +138,8 @@ function draw(){
         panVal=panVal * (-1);
         camera.zoom(zoom);
         //camera.rotateY(pan);
-        console.log("flipped");
-    }*/
+        //console.log("flipped");
+    }
     
 
     //console.log(camera.getDistance());
