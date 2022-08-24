@@ -15,12 +15,12 @@ let count=0;
 let zoom=5;
 let panVal=-5;
 let spaceBase=20;
-let baseRadius=15;
+let baseRadius=25;
 
 
 function setup(){
     //noLoop();
-    let mycanvas=createCanvas(600,400, WEBGL);
+    let mycanvas=createCanvas(800,600, WEBGL);
     mycanvas.parent('canvashome');
     
     generateSpiral1();
@@ -59,25 +59,30 @@ function generateSpiral2(){
 }
 
 function draw(){
-    background(0);
+    background(36, 35, 38);
     translate(-200, -200);
     noFill();
+
+    //rotate camera
     rotateangle+=.01;
 
     rotateX(rotateangle);
     rotateY(rotateangle);
     rotateZ(rotateangle);
-    /*if(mouseIsPressed){
-        // read cam params
-      //console.log(camera.camRUP);
-      //console.log(camera.getCenter());
-      //console.log(camera.getDistance());
-      //console.log(camera.getRotation());
-    }*/
+
+     //move camera
+     camera.zoom(zoom);
+     //camera.panY(panVal);
+     count++;
+     if(count % 200==0){
+         zoom=zoom*(-1);
+         panVal=panVal * (-1);
+         camera.zoom(zoom);
+     }
 
     //draw 1st helix
     
-    stroke('red');
+    stroke(52, 30, 138);
     strokeWeight(15);
     beginShape()
     for(let i=0;i<spiral1.length;i++){
@@ -88,7 +93,7 @@ function draw(){
     
 
     //draw 2nd helix
-    stroke('green');
+    stroke(52, 30, 138);
     //strokeWeight(3);
     beginShape()
     for(let i=0;i<spiral2.length;i++){
@@ -96,18 +101,17 @@ function draw(){
     }
     endShape();
     
-    //connect bases
-    strokeWeight(5);
-    stroke('yellow');
-    for(let i=0;i<spiral2.length;i++){
-        if(i%spaceBase==0){
-            line(spiral1[i].x,spiral1[i].y,spiral1[i].z,spiral2[i].x,spiral2[i].y,spiral2[i].z);
-            //pop();
-        }
-    }
+    //set up light source
+    directionalLight(101, 157, 247, 1, 1, -1);
+    pointLight(115, 56, 166, -1, 1, 1);
+    //lights();
 
-
-    stroke('blue');
+    //draw bases
+    noStroke();
+    fill(200,0,255);
+    specularMaterial(0,0,0,200);
+    //ambientMaterial(255);
+    //normalMaterial();
     for(let i=0;i<spiral1.length;i++){
         if(i%spaceBase==0){
             push();
@@ -118,7 +122,6 @@ function draw(){
     }
 
     //draw 2nd base
-    stroke('blue');
     for(let i=0;i<spiral2.length;i++){
         if(i%spaceBase==0){
             push();
@@ -128,23 +131,14 @@ function draw(){
         }
     }
 
-
-    //move camera
-    camera.zoom(zoom);
-    //camera.panY(panVal);
-    count++;
-    if(count % 200==0){
-        zoom=zoom*(-1);
-        panVal=panVal * (-1);
-        camera.zoom(zoom);
-        //camera.rotateY(pan);
-        //console.log("flipped");
+    //connect bases
+    strokeWeight(5);
+    stroke(56, 104, 166);
+    for(let i=0;i<spiral2.length;i++){
+        if(i%spaceBase==0){
+            line(spiral1[i].x,spiral1[i].y,spiral1[i].z,spiral2[i].x,spiral2[i].y,spiral2[i].z);
+            //pop();
+        }
     }
     
-
-    //console.log(camera.getDistance());
-    //camera.panVal(0,5);
-    //camera.setCenter(0);
-    //camera.setDistance(0);
-    //camera.setRotation([0.9980864385296963, -0.04781568451889584, 0.03820956931369176, 0.008783527193281212]);
 }
