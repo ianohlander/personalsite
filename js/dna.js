@@ -10,7 +10,6 @@ let spiral1=[];
 let spiral2=[];
 let rotateangle=0;
 let camera;
-let flipped=true;
 let count=0;
 let zoom=5;
 let panVal=-5;
@@ -19,14 +18,12 @@ let baseRadius=25;
 
 
 function setup(){
-    //noLoop();
     let mycanvas=createCanvas(800,600, WEBGL);
-    mycanvas.parent('canvashome');
+    mycanvas.parent('dna');
     
     generateSpiral1();
     generateSpiral2();
     camera=createEasyCam();
-    //console.log(camera);
 }
 
 function generateSpiral1(){
@@ -72,7 +69,6 @@ function draw(){
 
      //move camera
      camera.zoom(zoom);
-     //camera.panY(panVal);
      count++;
      if(count % 200==0){
          zoom=zoom*(-1);
@@ -94,7 +90,6 @@ function draw(){
 
     //draw 2nd helix
     stroke(52, 30, 138);
-    //strokeWeight(3);
     beginShape()
     for(let i=0;i<spiral2.length;i++){
         vertex(spiral2[i].x,spiral2[i].y,spiral2[i].z);
@@ -103,8 +98,7 @@ function draw(){
     
     //set up light source
     directionalLight(101, 157, 247, 1, 1, -1);
-    pointLight(115, 56, 166, -1, 1, 1);
-    //lights();
+    pointLight(255, 56, 166, -1, 1, 1);
 
     //draw bases
     noStroke();
@@ -137,7 +131,6 @@ function draw(){
     for(let i=0;i<spiral2.length;i++){
         if(i%spaceBase==0){
             line(spiral1[i].x,spiral1[i].y,spiral1[i].z,spiral2[i].x,spiral2[i].y,spiral2[i].z);
-            //pop();
         }
     }
     
