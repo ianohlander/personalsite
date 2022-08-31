@@ -1,6 +1,6 @@
-let s=420;
-let max=2;
-let numIterations=70;
+let s=360;
+let max=3;
+let numIterations=50;
 let x1off=0;
 let y1off=1000;
 let x2off=1000000;
@@ -10,14 +10,29 @@ let cb=0;
 let zx=0;
 let zy=0;
 let counter1=0.02;
-let counter2=0.0001;
+let counter2=0.001;
 let counter3=0.001;
 let counter4=0.01;
 
+const colorsRed = [];
+const colorsGreen = [];
+const colorsBlue = [];
+
 function setup(){
     let mycanvas=createCanvas(s,s);
+    colorMode(HSB, 1);
     mycanvas.parent('mandelbrot');
-    
+    createColors();
+}
+
+function createColors(){
+    for (let n = 0; n < numIterations; n++) {
+        let hu = sqrt(n / numIterations);
+        let col = color(hu, 255, 150);
+        colorsRed[n] = red(col);
+        colorsGreen[n] = green(col);
+        colorsBlue[n] = blue(col);
+      }
 }
 
 
@@ -26,8 +41,8 @@ function draw(){
     loadPixels();
     x1off+=counter1;
     y1off+=counter2;
-    x2off+=counter3;
-    y2off+=counter4;
+    //x2off+=counter3;
+    //y2off+=counter4;
     let noisex1=noise(x1off);
     let noisey1=noise(y1off);
     //let noisex2=noise(x2off);
@@ -55,8 +70,8 @@ function draw(){
             //ca=map(mouseX,0,width, -1,1);
             //cb=map(mouseY,0,height, -1,1);
             
-            ca=map(noisey1,0,1, -1,1);
-            cb=map(noisex1,0,5, -1,1);
+            ca=map(noisex1,0,1, -1,1);
+            cb=map(noisey1,0,5, -1,1);
             var n=0;
             var z=0;
 
@@ -67,7 +82,7 @@ function draw(){
                 a=aa+ca;
                 b=bb+cb;
 
-                if(a+b>12){
+                if(a+b>16){
                     break;
                 }
                 n++;
@@ -76,9 +91,21 @@ function draw(){
             var bright=map(n,0,numIterations,0,255);
 
             var pix=(x+(y*width))*4;
-            pixels[pix+0]=bright;
+            /*pixels[pix+0]=bright;
             pixels[pix+1]=bright;
-            pixels[pix+2]=bright;
+            pixels[pix+2]=bright;*/
+            
+            if (n == numIterations) {
+                pixels[pix + 0] = 0;
+                pixels[pix + 1] = 0;
+                pixels[pix + 2] = 0;
+              } 
+              else {
+                // Otherwise, use the colors that we made in setup()
+                pixels[pix + 0] = colorsRed[n];
+                pixels[pix + 1] = colorsGreen[n];
+                pixels[pix + 2] = colorsBlue[n];
+            }
             pixels[pix+3]=255;
         }
     }
