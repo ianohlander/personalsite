@@ -1,4 +1,4 @@
-let s=360;
+let s=450;
 let max=3;
 let numIterations=50;
 let x1off=0;
@@ -28,7 +28,7 @@ function setup(){
 function createColors(){
     for (let n = 0; n < numIterations; n++) {
         let hu = sqrt(n / numIterations);
-        let col = color(hu, 255, 150);
+        let col = color(hu, 255, 100);
         colorsRed[n] = red(col);
         colorsGreen[n] = green(col);
         colorsBlue[n] = blue(col);
