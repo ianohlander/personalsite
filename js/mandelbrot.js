@@ -9,10 +9,18 @@ let ca=0;
 let cb=0;
 let zx=0;
 let zy=0;
-let counter1=0.04;
-let counter2=0.001;
+let counter1=0.02;
+let counter2=0.02;
 let counter3=0.1;
 let counter4=0.01;
+let beginZoom=1.0;
+let zoomlevel=beginZoom/3;
+let hoffset=.3;
+let voffset=.3;
+let leftedge=(-zoomlevel)-hoffset;
+let rightedge=(zoomlevel)-hoffset;
+let topedge=(zoomlevel)-voffset;
+let bottomedge=(-zoomlevel)-voffset;
 
 const colorsRed = [];
 const colorsGreen = [];
@@ -53,8 +61,8 @@ function draw(){
             //noisey=noise(y1off);
             //zx=map(noisex1,0,1,-max,max);
             //zy=map(noisey1,0,1,-max,max);
-            var a=map(x,0,width,-2,2);
-            var b=map(y,0,height,-2,2);
+            var a=map(x,0,width,leftedge,rightedge);
+            var b=map(y,0,height,topedge,bottomedge);
             //var a=map(x,0,width,zx,zy);
             //var b=map(y,0,height,zx,zy);
             
